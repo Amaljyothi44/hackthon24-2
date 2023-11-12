@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Display Data</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Data Display</h1>
+        {% if sheet %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        {% for header in headers %}
+                            <th>{{ header }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in sheet.iter_rows(min_row=2, values_only=True) %}
+                        <tr>
+                            {% for cell in row %}
+                                <td><a href="{{ url_for('display_data', filename=filename) }}?selected_row={{ loop.index }}">{{ cell }}</a></td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+        {% if data %}
+            <form method="post" action="{{ url_for('update_data', filename=filename, selected_row=selected_row) }}">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            {% for header in headers %}
+                                <th>{{ header }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            {% for field in data %}
+                                <td><input type="text" name="{{ loop.index }}" value="{{ field }}" class="form-control"></td>
+                            {% endfor %}
+                        </tr>
+                    </tbody>
+                </table>
+                <button type="submit" class="btn btn-primary">Update</button>
+            </form>
+        {% endif %}
+    </div>
+</body>
+</html>

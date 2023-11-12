@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/css.gg@2.0.0/icons/css/software-download.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <title>Index</title>
+</head>
+<body>
+    <div class="parent">
+        <div class="sidebar">
+            <div class="logo-mini">
+                <img src={{ url_for('static', filename='images/logo.png') }} />
+            </div>
+            <div class="search-container button">
+                <div class="search-container button">
+                    <form method="POST" action='/display' enctype="multipart/form-data">
+                        {{ form.hidden_tag() }}
+                        <div class="form-group">
+                            <label for="file" class="form-label">Choose Excel File:</label>
+                            <input type="file" name="file" id="file" class="form-control-file">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Upload</button>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="non-sidebar">
+            <div class="search-container">
+                <!-- Dropdown Selection Box -->
+                <select>
+                    <option value="option1">Name</option>
+                    <option value="option2">Roll no</option>
+                    <option value="option3">Department</option>
+                </select>
+            
+                <!-- Search Bar -->
+                <input type="text" placeholder="Search...">
+            
+                <!-- Search Button -->
+                <button type="submit">Search</button>
+            </div>
+            <div class="table-container">
+                {% if sheet %}
+            <table id="myTable">
+                <thead>
+                    <tr>
+                        {% for header in headers %}
+                            <th>{{ header }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in sheet.iter_rows(min_row=2, values_only=True) %}
+                        <tr id="row{{ loop.index }}" onclick="editRow({{ loop.index }}, '{{ row[1] }}', '{{ row[2] }}')">
+                            {% for cell in row %}
+                                <td>{{ cell }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                
+            </table>
+            {% endif %}
+            {% if data %}
+            <form method="post" action="{{ url_for('update_data', filename=filename, selected_row=selected_row) }}">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            {% for header in headers %}
+                                <th>{{ header }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            {% for field in data %}
+                                <td><input type="text" name="{{ loop.index }}" value="{{ field }}" class="form-control"></td>
+                            {% endfor %}
+                        </tr>
+                    </tbody>
+                </table>
+                <button type="submit" class="btn btn-primary">Update</button>
+            </form>
+        {% endif %}
+            <!-- Popup content with form -->
+            <div id="popup" class="popup">
+                <span class="close-btn" onclick="closePopup()">&times;</span>
+                <h2>Details</h2>
+                <form id="edit-form" >
+                    <div>
+                        <label for="popup-id">ID:</label>
+                        <input type="text" id="edit-id" readonly>
+                    </div>
+                    <div>
+                        <label for="popup-name">Name:</label>
+                        <input type="text" id="edit-name">
+                    </div>
+                    <div>
+                        <label for="popup-email">Email:</label>
+                        <input type="text" id="edit-email">
+                    </div>
+                    <div class="search-container">
+                        <button type="button" onclick="saveChanges()">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+            <div class="search-container">
+                <button type="button" class="download">
+                    Download
+                    <i class="gg-software-download"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let editedRowId;
+        
+        function editRow(id, name, email) {
+            editedRowId = id;
+            document.getElementById('edit-id').value = id;
+            document.getElementById('edit-name').value = name;
+            document.getElementById('edit-email').value = email;
+            document.getElementById('popup').style.display = 'block';
+        }
+        
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+        }
+        
+        function saveChanges() {
+            const editedName = document.getElementById('edit-name').value;
+            const editedEmail = document.getElementById('edit-email').value;
+        
+            // Update the original table with the edited values
+            const rowToEdit = document.getElementById('row' + editedRowId);
+            rowToEdit.children[1].innerText = editedName;
+            rowToEdit.children[2].innerText = editedEmail;
+        
+            // Make an AJAX request to update the data on the server
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', `/update/${filename}/${editedRowId}`, true);
+            
+            // Create a FormData object from the form
+            const formData = new FormData(document.getElementById('edit-form'));
+        
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    console.log('Data updated on the server.');
+                } else {
+                    console.error('Failed to update data on the server.');
+                }
+            };
+        
+            // Send the FormData object in the request
+            xhr.send(formData);
+        
+            closePopup();
+        }
+    </script>
+    
+</body>
+</html>

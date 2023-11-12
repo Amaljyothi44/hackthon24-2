@@ -1,0 +1,67 @@
+<<<<<<< HEAD
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Logs and databases
+*.log
+*.sqlite
+
+# Environment and local settings
+.env
+instance/
+config.py
+
+# User uploads
+uploads/
+
+# Virtual environment
+venv/
+env/
+
+# IDE files
+.idea/
+.vscode/
+
+# Compiled Python files
+*.pyc
+*.pyo
+
+# macOS
+.DS_Store
+=======
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Logs and databases
+*.log
+*.sqlite
+
+# Environment and local settings
+.env
+instance/
+config.py
+
+# User uploads
+uploads/
+
+# Virtual environment
+venv/
+env/
+
+# IDE files
+.idea/
+.vscode/
+
+# Compiled Python files
+*.pyc
+*.pyo
+
+# macOS
+.DS_Store
+>>>>>>> 053943592a651acbdd96b43feb5e08786362402d
+
+.vercel

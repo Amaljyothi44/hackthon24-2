@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Excel File Upload</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Upload Excel File</h1>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li class="alert alert-{{ message[1] }}">{{ message[0] }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+        <form method="POST" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                <label for="file" class="form-label">Choose Excel File:</label>
+                <input type="file" name="file" id="file" class="form-control-file">
+                <button type="submit" class="btn btn-primary">Upload</button>
+            </div>
+            
+        </form>
+    </div>
+</body>
+</html>
