@@ -1,0 +1,250 @@
+body {
+    background-color: #ffffff;
+    color: black;
+    margin: 0;
+    padding: 0;
+}
+
+.logo > img{
+    width: 300px;
+}
+
+.logo-mini > img{
+    width: 100px;
+}
+
+.cntr {
+    margin: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.outer-box {
+    background-image: url('green.png');
+    background-size: contain;
+    width: 700px;
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    background-color: #f6f6f6;
+    width: 400px;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.parent {
+    display: flex;
+}
+
+.sidebar {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+    margin: 0;
+    padding: 10px;
+    background-color: #f6f6f6;
+    width: 280px;
+    height: 640px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.non-sidebar{
+    width: 100%;
+    background-color: #ffffff;
+}
+
+.table-container {
+    width: 100%;
+    height: 300px;
+    overflow: auto;
+    margin-top: 20px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+}
+
+th {
+    background-color: #333;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+  td:first-child {
+    position: sticky;
+    left: 0;
+    background-color: #ffffff;
+    color: black;
+    z-index: 1;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #ffffff;
+  }
+
+tr:hover td {
+    background-color: #ddd;
+    cursor: pointer;
+}
+
+  .search-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 500px;
+    margin: 20px auto;
+}
+
+.search-container select,
+.search-container input[type="text"],
+.search-container button {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.search-container input[type="text"] {
+    flex-grow: 1;
+}
+
+.search-container button {
+    background-color: #1D6F42;
+    color: white;
+    cursor: pointer;
+}
+
+.search-container button:hover {
+    transition: 0.5s;
+    background-color: #1d6f24;
+    color: white;
+    cursor: pointer;
+}
+
+/* Optional: Style the dropdown */
+.search-container select {
+    appearance: none;
+    background-color: white;
+    cursor: pointer;
+}
+
+/* Styles for the popup */
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 80%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+/* Style for form elements */
+form {
+    display: grid;
+    gap: 15px;
+}
+
+label {
+    font-weight: bold;
+}
+
+input {
+    padding: 8px;
+    width: 93%;
+}  
+
+.download {
+    position: fixed;
+    width: 180px;
+    bottom: 30px;
+    right: 30px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 60px;
+}
+
+.pad {
+    padding: 30px;
+}
+
+.description {
+    text-align: center;
+}
+
+/* Download Icon */
+.gg-software-download {
+    box-sizing: border-box;
+    position: relative;
+    display: block;
+    transform: scale(var(--ggs,1));
+    width: 16px;
+    height: 6px;
+    border: 2px solid;
+    border-top: 0;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+    margin-top: 8px
+   }
+   
+   .gg-software-download::after {
+    content: "";
+    display: block;
+    box-sizing: border-box;
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-left: 2px solid;
+    border-bottom: 2px solid;
+    transform: rotate(-45deg);
+    left: 2px;
+    bottom: 4px
+   }
+   
+   .gg-software-download::before {
+    content: "";
+    display: block;
+    box-sizing: border-box;
+    position: absolute;
+    border-radius: 3px;
+    width: 2px;
+    height: 10px;
+    background: currentColor;
+    left: 5px;
+    bottom: 5px
+   } 
